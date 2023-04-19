@@ -1,9 +1,19 @@
+import Header from "./components/Header";
+import { Routes, Route } from "react-router-dom";
+import Home from "./views/Home";
+// import Projects from "./components/Projects";
+import Project from "./views/Project";
 const App = () => {
   return (
-    <div className="min-h-screen">
-      <h4 className="text-3xl">Hello Truffle and Tailwind</h4>
+    <div className="min-h-screen relative">
+      <div>Hi</div>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/projects/:id" element={<Project />} />
+      </Routes>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
