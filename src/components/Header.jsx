@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { TbBusinessplan } from "react-icons/tb";
 import { connectWallet } from "../services/blockchain";
 import { truncate } from "../store";
+import { useGlobalState } from "../store";
 const Header = () => {
   const [connectedAccount] = useGlobalState("connectedAccount");
   return (
@@ -20,7 +21,7 @@ const Header = () => {
             type="button"
             className="inline-block px-6 py-2.5 bg-green-600 text-white text-xs font-medium leading-tight uppercase rounded-full shadow-md hover:bg-green-700"
           >
-            {truncate(connectedAccount, 4, 4, 11)}
+            {truncate(connectedAccount, 4, 4, 13)}
           </button>
         ) : (
           <button
@@ -31,6 +32,13 @@ const Header = () => {
             Connect Wallet
           </button>
         )}
+        {/* <button
+          type="button"
+          className="inline-block px-6 py-2.5 bg-green-600 text-white text-xs font-medium leading-tight uppercase rounded-full shadow-md hover:bg-green-700"
+          onClick={connectWallet}
+        >
+          Connect Wallet
+        </button> */}
       </div>
     </div>
   );

@@ -3,7 +3,12 @@ import Hero from "../components/Hero";
 import Projects from "../components/Projects";
 import CreateProject from "../components/CreateProject";
 import AddButton from "../components/AddButton";
+import { useEffect } from "react";
+import { loadProjects } from "../services/blockchain";
 const Home = () => {
+  useEffect(async () => {
+    await loadProjects();
+  }, []);
   return (
     <>
       <Hero />

@@ -1,51 +1,55 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
+import "react-toastify/dist/ReactToastify.css";
 // import { toast } from "react-toastify";
-// import { createProject } from "../services/blockchain";
+import { ToastContainer, toast } from "react-toastify";
+import { createProject } from "../services/blockchain";
 import { useGlobalState, setGlobalState } from "../store";
+import { useState } from "react";
 
 const CreateProject = () => {
   const [createModal] = useGlobalState("createModal");
-  // const [title, setTitle] = useState("");
-  // const [description, setDescription] = useState("");
-  // const [cost, setCost] = useState("");
-  // const [date, setDate] = useState("");
-  // const [imageURL, setImageURL] = useState("");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [cost, setCost] = useState("");
+  const [date, setDate] = useState("");
+  const [imageURL, setImageURL] = useState("");
 
-  // const toTimestamp = (dateStr) => {
-  //   const dateObj = Date.parse(dateStr);
-  //   return dateObj / 1000;
-  // };
+  const toTimestamp = (dateStr) => {
+    const dateObj = Date.parse(dateStr);
+    return dateObj / 1000;
+  };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (!title || !description || !cost || !date || !imageURL) return;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!title || !description || !cost || !date || !imageURL) return;
 
-  //   const params = {
-  //     title,
-  //     description,
-  //     cost,
-  //     expiresAt: toTimestamp(date),
-  //     imageURL,
-  //   };
+    const params = {
+      title,
+      description,
+      cost,
+      expiresAt: toTimestamp(date),
+      imageURL,
+    };
+    // console.log(params);
 
-  //   await createProject(params);
-  //   toast.success("Project created successfully, will reflect in 30sec.");
-  //   onClose();
-  // };
+    await createProject(params);
+    // toast.success("Project created successfully, will reflect in 30sec.");
+    onClose();
+  };
 
-  // const onClose = () => {
-  //   setGlobalState("createModal", "scale-0");
-  //   reset();
-  // };
+  const onClose = () => {
+    setGlobalState("createModal", "scale-0");
+    reset();
+  };
 
-  // const reset = () => {
-  //   setTitle("");
-  //   setCost("");
-  //   setDescription("");
-  //   setImageURL("");
-  //   setDate("");
-  // };
+  const reset = () => {
+    setTitle("");
+    setCost("");
+    setDescription("");
+    setImageURL("");
+    setDate("");
+  };
 
   return (
     <div
@@ -57,11 +61,11 @@ const CreateProject = () => {
         className="bg-white shadow-xl shadow-black
         rounded-xl w-11/12 md:w-2/5 h-7/12 p-6 "
       >
-        <form action="" className="flex flex-col">
+        <form onSubmit={handleSubmit} className="flex flex-col">
           <div className="flex justify-between items-center">
             <p className="font-semibold ">Add Project</p>
             <button
-              onClick={() => setGlobalState("createModal", "scale-0")}
+              onClick={onClose}
               type="button"
               className="border-0 bg-transparent focus:outline-none"
             >
@@ -71,7 +75,10 @@ const CreateProject = () => {
           <div className="flex justify-center items-center mt-5">
             <div className="rounded-xl overflow-hidden h-20 w-20">
               <img
-                src="https://media.wired.com/photos/5926e64caf95806129f50fde/master/pass/AnkiHP.jpg"
+                src={
+                  imageURL ||
+                  "https://media.wired.com/photos/5926e64caf95806129f50fde/master/pass/AnkiHP.jpg"
+                }
                 alt="project title"
                 className="h-full w-full object-cover cursor-pointer"
               />
@@ -89,8 +96,8 @@ const CreateProject = () => {
               type="text"
               name="title"
               placeholder="Title"
-              // onChange={(e) => setTitle(e.target.value)}
-              // value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              value={title}
               required
             />
           </div>
@@ -107,9 +114,9 @@ const CreateProject = () => {
               min={0.01}
               name="amount"
               placeholder="Amount ETH"
-              // onChange={(e) => setCost(e.target.value)}
-              // value={cost}
-              // required
+              onChange={(e) => setCost(e.target.value)}
+              value={cost}
+              required
             />
           </div>
 
@@ -124,9 +131,9 @@ const CreateProject = () => {
               type="date"
               name="date"
               placeholder="Expires"
-              // onChange={(e) => setDate(e.target.value)}
-              // value={date}
-              // required
+              onChange={(e) => setDate(e.target.value)}
+              value={date}
+              required
             />
           </div>
           <div
@@ -140,9 +147,9 @@ const CreateProject = () => {
               type="url"
               name="imageURL"
               placeholder="Image URL"
-              // onChange={(e) => setImageURL(e.target.value)}
-              // value={imageURL}
-              // required
+              onChange={(e) => setImageURL(e.target.value)}
+              value={imageURL}
+              required
             />
           </div>
           <div
@@ -156,9 +163,9 @@ const CreateProject = () => {
               type="text"
               name="description"
               placeholder="Description"
-              // onChange={(e) => setDescription(e.target.value)}
-              // value={description}
-              // required
+              onChange={(e) => setDescription(e.target.value)}
+              value={description}
+              required
             ></textarea>
           </div>
           <button

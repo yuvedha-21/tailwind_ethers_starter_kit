@@ -124,27 +124,21 @@ contract Genesis {
             msg.sender,
             block.timestamp
         );
-
         return true;
     }
-
     function deleteProject(uint id) public returns (bool) {
         require(projects[id].status == statusEnum.OPEN, "Project no longer opened");
         require(msg.sender == projects[id].owner, "Unauthorized Entity");
-
         projects[id].status = statusEnum.DELETED;
         performRefund(id);
-
         emit Action (
             id,
             "PROJECT DELETED",
             msg.sender,
             block.timestamp
         );
-
         return true;
     }
-
     function performRefund(uint id) internal {
         for(uint i = 0; i < backersOf[id].length; i++) {
             address _owner = backersOf[id][i].owner;
@@ -158,7 +152,6 @@ contract Genesis {
             stats.totalDonations -= _contribution;
         }
     }
-
     function backProject(uint id) public payable returns (bool) {
         require(msg.value > 0 ether, "Ether must be greater than zero");
         require(projectExist[id], "Project not found");
@@ -191,7 +184,6 @@ contract Genesis {
             performPayout(id);
             return true;
         }
-
         if(block.timestamp >= projects[id].expiresAt) {
             projects[id].status = statusEnum.REVERTED;
             performRefund(id);
