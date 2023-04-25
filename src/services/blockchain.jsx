@@ -47,29 +47,32 @@ const isWallectConnected = async () => {
 const getEtheriumContract = async () => {
   const connectedAccount = getGlobalState("connectedAccount");
 
-  if (connectedAccount) {
-    const provider = new ethers.providers.Web3Provider(ethereum);
-    const signer = provider.getSigner();
-    let contract = new ethers.Contract(contractAddress, contractAbi, signer);
+  // if (connectedAccount) {
+  //   const provider = new ethers.providers.Web3Provider(ethereum);
+  //   const signer = provider.getSigner();
+  //   let contract = new ethers.Contract(contractAddress, contractAbi, signer);
+  //   return contract;
+  // } else {
+  //   return getGlobalState("contract");
+  // }
 
-    return contract;
-  } else {
-    return getGlobalState("contract");
-  }
+  const provider = new ethers.providers.Web3Provider(ethereum);
+  const signer = provider.getSigner();
+  let contract = new ethers.Contract(contractAddress, contractAbi, signer);
+  return contract;
 };
 
 const createProject = async ({
   title,
   description,
   imageURL,
-  cost,
+  cost: costInEther,
   expiresAt,
 }) => {
   try {
     if (!ethereum) return alert("Please install Metamask");
-
     const contract = await getEtheriumContract();
-    const cost = ethers.utils.parseEther(cost);
+    const cost = ethers.utils.parseEther(costInEther);
     // tx = await contract.createProject(
     //   title,
     //   description,
@@ -78,8 +81,9 @@ const createProject = async ({
     //   expiresAt
     // );
     // await tx.wait();
-    console.log("create contract");
     await contract.createProject(title, description, imageURL, cost, expiresAt);
+    console.log("project created");
+    // await loadProjects();
   } catch (error) {
     reportError(error);
   }
@@ -123,18 +127,15 @@ const createProject = async ({
 const loadProjects = async () => {
   try {
     if (!ethereum) return alert("Please install Metamask");
-    // const provider = new ethers.providers.Web3Provider(ethereum);
-    // const signer = provider.getSigner();
-    // const contract = new ethers.Contract(contractAddress, contractAbi, signer);
-    let contract = await getEtheriumContract();
+    const contract = await getEtheriumContract();
+    console.log(contract);
     const projects = await contract.getProjects();
-
     console.log(projects);
     const stats = await contract.stats();
-    console.log(stats);
+    // console.log(projects);
+    // console.log(stats);
     // setGlobalState("stats", structureStats(stats));
     // setGlobalState("projects", structuredProjects(projects));
-    // console.log(stats);
   } catch (error) {
     reportError(error);
   }

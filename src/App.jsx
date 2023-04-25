@@ -6,7 +6,7 @@ import Project from "./views/Project";
 import { useEffect } from "react";
 import { isWallectConnected } from "./services/blockchain";
 // import { ToastContainer } from "react-toastify";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 const App = () => {
   useEffect(async () => {
     await isWallectConnected();

@@ -1,8 +1,8 @@
 import React from "react";
 import { FaTimes } from "react-icons/fa";
-import "react-toastify/dist/ReactToastify.css";
 // import { toast } from "react-toastify";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { createProject } from "../services/blockchain";
 import { useGlobalState, setGlobalState } from "../store";
 import { useState } from "react";
@@ -31,10 +31,10 @@ const CreateProject = () => {
       expiresAt: toTimestamp(date),
       imageURL,
     };
-    // console.log(params);
+    console.log(params);
 
     await createProject(params);
-    // toast.success("Project created successfully, will reflect in 30sec.");
+    toast.success("Project created successfully, will reflect in 30sec.");
     onClose();
   };
 
