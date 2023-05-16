@@ -47,20 +47,27 @@ const isWallectConnected = async () => {
 const getEtheriumContract = async () => {
   const connectedAccount = getGlobalState("connectedAccount");
 
-  // if (connectedAccount) {
-  //   const provider = new ethers.providers.Web3Provider(ethereum);
-  //   const signer = provider.getSigner();
-  //   let contract = new ethers.Contract(contractAddress, contractAbi, signer);
-  //   return contract;
-  // } else {
-  //   return getGlobalState("contract");
-  // }
+  if (connectedAccount) {
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const signer = provider.getSigner();
+    let contract = new ethers.Contract(contractAddress, contractAbi, signer);
+    return contract;
+  } else {
+    return getGlobalState("contract");
+  }
 
-  const provider = new ethers.providers.Web3Provider(ethereum);
-  const signer = provider.getSigner();
-  let contract = new ethers.Contract(contractAddress, contractAbi, signer);
-  return contract;
+  // const provider = new ethers.providers.Web3Provider(ethereum);
+  // const signer = provider.getSigner();
+  // let contract = new ethers.Contract(contractAddress, contractAbi, signer);
+  // return contract;
 };
+
+// const testContract = async () => {
+//   const contract = await getEtheriumContract();
+//   console.log("test");
+//   const own = await contract.owner;
+//   console.log(own.toString());
+// };
 
 const createProject = async ({
   title,
@@ -82,13 +89,11 @@ const createProject = async ({
     // );
     // await tx.wait();
     await contract.createProject(title, description, imageURL, cost, expiresAt);
-    console.log("project created");
-    // await loadProjects();
+    await loadProjects();
   } catch (error) {
     reportError(error);
   }
 };
-
 // const updateProject = async ({
 //   id,
 //   title,
@@ -98,7 +103,6 @@ const createProject = async ({
 // }) => {
 //   try {
 //     if (!ethereum) return alert("Please install Metamask");
-
 //     const contract = await getEtheriumContract();
 //     tx = await contract.updateProject(
 //       id,
@@ -128,14 +132,10 @@ const loadProjects = async () => {
   try {
     if (!ethereum) return alert("Please install Metamask");
     const contract = await getEtheriumContract();
-    console.log(contract);
     const projects = await contract.getProjects();
-    console.log(projects);
     const stats = await contract.stats();
-    // console.log(projects);
-    // console.log(stats);
-    // setGlobalState("stats", structureStats(stats));
-    // setGlobalState("projects", structuredProjects(projects));
+    setGlobalState("stats", structureStats(stats));
+    setGlobalState("projects", structuredProjects(projects));
   } catch (error) {
     reportError(error);
   }
@@ -212,38 +212,38 @@ const loadProjects = async () => {
 //     }))
 //     .reverse();
 
-// const structuredProjects = (projects) =>
-//   projects
-//     .map((project) => ({
-//       id: project.id.toNumber(),
-//       owner: project.owner.toLowerCase(),
-//       title: project.title,
-//       description: project.description,
-//       timestamp: new Date(project.timestamp.toNumber()).getTime(),
-//       expiresAt: new Date(project.expiresAt.toNumber()).getTime(),
-//       date: toDate(project.expiresAt.toNumber() * 1000),
-//       imageURL: project.imageURL,
-//       raised: parseInt(project.raised._hex) / 10 ** 18,
-//       cost: parseInt(project.cost._hex) / 10 ** 18,
-//       backers: project.backers.toNumber(),
-//       status: project.status,
-//     }))
-//     .reverse();
+const structuredProjects = (projects) =>
+  projects
+    .map((project) => ({
+      id: project.id.toNumber(),
+      owner: project.owner.toLowerCase(),
+      title: project.title,
+      description: project.description,
+      timestamp: new Date(project.timestamp.toNumber()).getTime(),
+      expiresAt: new Date(project.expiresAt.toNumber()).getTime(),
+      date: toDate(project.expiresAt.toNumber() * 1000),
+      imageURL: project.imageURL,
+      raised: parseInt(project.raised._hex) / 10 ** 18,
+      cost: parseInt(project.cost._hex) / 10 ** 18,
+      backers: project.backers.toNumber(),
+      status: project.status,
+    }))
+    .reverse();
 
-// const toDate = (timestamp) => {
-//   const date = new Date(timestamp);
-//   const dd = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`;
-//   const mm =
-//     date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
-//   const yyyy = date.getFullYear();
-//   return `${yyyy}-${mm}-${dd}`;
-// };
+const toDate = (timestamp) => {
+  const date = new Date(timestamp);
+  const dd = date.getDate() > 9 ? date.getDate() : `0${date.getDate()}`;
+  const mm =
+    date.getMonth() + 1 > 9 ? date.getMonth() + 1 : `0${date.getMonth() + 1}`;
+  const yyyy = date.getFullYear();
+  return `${yyyy}-${mm}-${dd}`;
+};
 
-// const structureStats = (stats) => ({
-//   totalProjects: stats.totalProjects.toNumber(),
-//   totalBacking: stats.totalBacking.toNumber(),
-//   totalDonations: parseInt(stats.totalDonations._hex) / 10 ** 18,
-// });
+const structureStats = (stats) => ({
+  totalProjects: stats.totalProjects.toNumber(),
+  totalBacking: stats.totalBacking.toNumber(),
+  totalDonations: parseInt(stats.totalDonations._hex) / 10 ** 18,
+});
 
 const reportError = (error) => {
   console.log(error.message);
@@ -257,6 +257,7 @@ export {
   // updateProject,
   // deleteProject,
   loadProjects,
+  structuredProjects,
   // loadProject,
   // backProject,
   // getBackers,
