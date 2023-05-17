@@ -12,21 +12,21 @@ const Header = () => {
         to="/"
         className="flex justify-start items-center text-xl text-black space-x-1"
       >
-        <span>Genesis</span>
-        <TbBusinessplan></TbBusinessplan>
+        <span>CrowdFunding Platform</span>
+        {/* <TbBusinessplan></TbBusinessplan> */}
       </Link>
       <div className="flex space-x-2 justify-center">
         {connectedAccount ? (
           <button
             type="button"
-            className="inline-block px-6 py-2.5 bg-green-600 text-white text-xs font-medium leading-tight uppercase rounded-full shadow-md hover:bg-green-700"
+            className="inline-block px-6 py-2.5 bg-blue-600 text-white text-xs font-medium leading-tight uppercase rounded-full shadow-md hover:bg-blue-700"
           >
             {truncate(connectedAccount, 4, 4, 13)}
           </button>
         ) : (
           <button
             type="button"
-            className="inline-block px-6 py-2.5 bg-green-600 text-white text-xs font-medium leading-tight uppercase rounded-full shadow-md hover:bg-green-700"
+            className="inline-block px-6 py-2.5 bg-blue-600 text-white text-xs font-medium leading-tight uppercase rounded-full shadow-md hover:bg-blue-700"
             onClick={connectWallet}
           >
             Connect Wallet

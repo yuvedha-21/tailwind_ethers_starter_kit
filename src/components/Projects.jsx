@@ -26,9 +26,9 @@ const Projects = ({ projects }) => {
         <div className="flex justify-center items-center my-5">
           <button
             type="button"
-            className="inline-block px-6 py-2.5 bg-green-600
+            className="inline-block px-6 py-2.5 bg-blue-600
           text-white font-medium text-xs leading-tight uppercase
-          rounded-full shadow-md hover:bg-green-700"
+          rounded-full shadow-md hover:bg-blue-700"
             onClick={() => setEnd(end + count)}
           >
             Load more
@@ -44,20 +44,20 @@ const ProjectCard = ({ project }) => (
 
   <div id="projects" className="rounded-lg shadow-lg bg-white w-64 m-4">
     <Link to={"/projects/" + project.id}>
-      <img
+      {/* <img
         src={project.imageURL}
         alt={project.title}
         className="rounded-lg h-64 w-full object-cover"
-      />
+      /> */}
       <div className="p-4">
-        <h5>{project.title}</h5>
+        <h5 className="font-bold mt-1 mb-2 text-gray-700">{project.title}</h5>
         <div>
           <div className="flex justify-between items-center mb-3">
-            <Identicon
+            {/* <Identicon
               className="rounded-full shadow-md"
               string={project.owner}
               size={15}
-            />
+            /> */}
             <small className="text-grey-700">
               {truncate(project.owner, 4, 4, 11)}
             </small>
@@ -70,10 +70,10 @@ const ProjectCard = ({ project }) => (
           </small>
         </div>
         <div className="w-full bg-gray-300">
-          <div
+          {/* <div
             className="bg-green-600 text-xs font-medium text-green-100 text-centerp-0.5 leadind-none rounded-l-full h-1"
             style={{ width: `${(project.raised / project.cost) * 100}%` }}
-          ></div>
+          ></div> */}
         </div>
         <div
           className="flex justify-between items-center 

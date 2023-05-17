@@ -1,7 +1,7 @@
 import { FaEthereum } from "react-icons/fa";
 import Identicon from "react-identicons";
 import Moment from "react-moment";
-// import { truncate } from "../store";
+import { truncate } from "../store";
 
 const ProjectBackers = ({ backers }) => {
   return (
@@ -44,37 +44,9 @@ const ProjectBackers = ({ backers }) => {
             </tr>
           </thead>
           <tbody>
-            {/* {backers.map((backer, i) => (
+            {backers.map((backer, i) => (
               <Backer key={i} backer={backer} />
-            ))} */}
-            {Array(15)
-              .fill()
-              .map((backing, i) => (
-                <tr key={i} className="border-b border-gray-200">
-                  <td className="text-sm font-light px-6 py-4 whitespace-nowrap">
-                    <div className="flex justify-start items-center space-x-2">
-                      <Identicon
-                        className="h-10 w-10 object-contain rounded-full shadow-md"
-                        string="0x2e....4a3f+i"
-                        size={25}
-                      />
-                      <span>0x2e....4a3{i}</span>
-                    </div>
-                  </td>
-                  <td className="text-sm font-light px-6 py-4 whitespace-nowrap">
-                    <small className="flex justify-start items-center space-x-1">
-                      <FaEthereum />
-                      <span className="text-gray-700 font-medium">{3}ETH</span>
-                    </small>
-                  </td>
-                  <td className="text-sm font-light px-6 py-4 whitespace-nowrap">
-                    {false ? "yes" : "No"}
-                  </td>
-                  <td className="text-sm font-light px-6 py-4 whitespace-nowrap">
-                    {new Date().getTime()}
-                  </td>
-                </tr>
-              ))}
+            ))}
           </tbody>
         </table>
       </div>
@@ -82,19 +54,35 @@ const ProjectBackers = ({ backers }) => {
   );
 };
 
+{
+  /* <a href={`https://etherscan.io/address/${backer.owner}`} target="_blank" rel="noopener noreferrer">
+        <span>{truncate(backer.owner, 4, 4, 11)}</span>
+      </a> */
+}
+
 const Backer = ({ backer }) => (
   <tr className="border-b border-gray-200">
+    {/* <p>h</p> */}
+
     <td
       className="text-sm font-light
       px-6 py-4 whitespace-nowrap"
     >
       <div className="flex justify-start items-center space-x-2">
-        <Identicon
+        {/* identication for avatar image */}
+
+        {/* <Identicon
           className="h-10 w-10 object-contain rounded-full shadow-md"
           string={backer.owner}
           size={25}
-        />
-        <span>{truncate(backer.owner, 4, 4, 11)}</span>
+        /> */}
+        <a
+          href={`https://sepolia.etherscan.io/address/${backer.owner}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>{truncate(backer.owner, 4, 4, 11)}</span>
+        </a>
       </div>
     </td>
     <td
@@ -102,7 +90,8 @@ const Backer = ({ backer }) => (
                   px-6 py-4 whitespace-nowrap"
     >
       <small className="flex justify-start items-center space-x-1">
-        <FaEthereum />
+        {/* below for ethereum icon */}
+        {/* <FaEthereum /> */}
         <span className="text-gray-700 font-medium">
           {backer.contribution} ETH
         </span>

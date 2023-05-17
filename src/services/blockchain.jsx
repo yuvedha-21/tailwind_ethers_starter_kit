@@ -94,39 +94,39 @@ const createProject = async ({
     reportError(error);
   }
 };
-// const updateProject = async ({
-//   id,
-//   title,
-//   description,
-//   imageURL,
-//   expiresAt,
-// }) => {
-//   try {
-//     if (!ethereum) return alert("Please install Metamask");
-//     const contract = await getEtheriumContract();
-//     tx = await contract.updateProject(
-//       id,
-//       title,
-//       description,
-//       imageURL,
-//       expiresAt
-//     );
-//     await tx.wait();
-//     await loadProject(id);
-//   } catch (error) {
-//     reportError(error);
-//   }
-// };
+const updateProject = async ({
+  id,
+  title,
+  description,
+  imageURL,
+  expiresAt,
+}) => {
+  try {
+    if (!ethereum) return alert("Please install Metamask");
+    const contract = await getEtheriumContract();
+    tx = await contract.updateProject(
+      id,
+      title,
+      description,
+      imageURL,
+      expiresAt
+    );
+    await tx.wait();
+    await loadProject(id);
+  } catch (error) {
+    reportError(error);
+  }
+};
 
-// const deleteProject = async (id) => {
-//   try {
-//     if (!ethereum) return alert("Please install Metamask");
-//     const contract = await getEtheriumContract();
-//     await contract.deleteProject(id);
-//   } catch (error) {
-//     reportError(error);
-//   }
-// };
+const deleteProject = async (id) => {
+  try {
+    if (!ethereum) return alert("Please install Metamask");
+    const contract = await getEtheriumContract();
+    await contract.deleteProject(id);
+  } catch (error) {
+    reportError(error);
+  }
+};
 
 const loadProjects = async () => {
   try {
@@ -141,76 +141,77 @@ const loadProjects = async () => {
   }
 };
 
-// const loadProject = async (id) => {
-//   try {
-//     if (!ethereum) return alert("Please install Metamask");
-//     const contract = await getEtheriumContract();
-//     const project = await contract.getProject(id);
+const loadProject = async (id) => {
+  try {
+    if (!ethereum) return alert("Please install Metamask");
+    const contract = await getEtheriumContract();
+    const project = await contract.getProject(id);
 
-//     setGlobalState("project", structuredProjects([project])[0]);
-//   } catch (error) {
-//     alert(JSON.stringify(error.message));
-//     reportError(error);
-//   }
-// };
+    setGlobalState("project", structuredProjects([project])[0]);
+    console.log("project loading.......");
+  } catch (error) {
+    alert(JSON.stringify(error.message));
+    reportError(error);
+  }
+};
 
-// const backProject = async (id, amount) => {
-//   try {
-//     if (!ethereum) return alert("Please install Metamask");
-//     const connectedAccount = getGlobalState("connectedAccount");
-//     const contract = await getEtheriumContract();
-//     amount = ethers.utils.parseEther(amount);
+const backProject = async (id, amount) => {
+  try {
+    if (!ethereum) return alert("Please install Metamask");
+    const connectedAccount = getGlobalState("connectedAccount");
+    const contract = await getEtheriumContract();
+    amount = ethers.utils.parseEther(amount);
 
-//     tx = await contract.backProject(id, {
-//       from: connectedAccount,
-//       value: amount._hex,
-//     });
+    tx = await contract.backProject(id, {
+      from: connectedAccount,
+      value: amount._hex,
+    });
 
-//     await tx.wait();
-//     await getBackers(id);
-//   } catch (error) {
-//     reportError(error);
-//   }
-// };
+    await tx.wait();
+    await getBackers(id);
+  } catch (error) {
+    reportError(error);
+  }
+};
 
-// const getBackers = async (id) => {
-//   try {
-//     if (!ethereum) return alert("Please install Metamask");
-//     const contract = await getEtheriumContract();
-//     let backers = await contract.getBackers(id);
+const getBackers = async (id) => {
+  try {
+    if (!ethereum) return alert("Please install Metamask");
+    const contract = await getEtheriumContract();
+    let backers = await contract.getBackers(id);
 
-//     setGlobalState("backers", structuredBackers(backers));
-//   } catch (error) {
-//     reportError(error);
-//   }
-// };
+    setGlobalState("backers", structuredBackers(backers));
+  } catch (error) {
+    reportError(error);
+  }
+};
 
-// const payoutProject = async (id) => {
-//   try {
-//     if (!ethereum) return alert("Please install Metamask");
-//     const connectedAccount = getGlobalState("connectedAccount");
-//     const contract = await getEtheriumContract();
+const payoutProject = async (id) => {
+  try {
+    if (!ethereum) return alert("Please install Metamask");
+    const connectedAccount = getGlobalState("connectedAccount");
+    const contract = await getEtheriumContract();
 
-//     tx = await contract.payOutProject(id, {
-//       from: connectedAccount,
-//     });
+    tx = await contract.payOutProject(id, {
+      from: connectedAccount,
+    });
 
-//     await tx.wait();
-//     await getBackers(id);
-//   } catch (error) {
-//     reportError(error);
-//   }
-// };
+    await tx.wait();
+    await getBackers(id);
+  } catch (error) {
+    reportError(error);
+  }
+};
 
-// const structuredBackers = (backers) =>
-//   backers
-//     .map((backer) => ({
-//       owner: backer.owner.toLowerCase(),
-//       refunded: backer.refunded,
-//       timestamp: new Date(backer.timestamp.toNumber() * 1000).toJSON(),
-//       contribution: parseInt(backer.contribution._hex) / 10 ** 18,
-//     }))
-//     .reverse();
+const structuredBackers = (backers) =>
+  backers
+    .map((backer) => ({
+      owner: backer.owner.toLowerCase(),
+      refunded: backer.refunded,
+      timestamp: new Date(backer.timestamp.toNumber() * 1000).toJSON(),
+      contribution: parseInt(backer.contribution._hex) / 10 ** 18,
+    }))
+    .reverse();
 
 const structuredProjects = (projects) =>
   projects
@@ -254,12 +255,12 @@ export {
   connectWallet,
   isWallectConnected,
   createProject,
-  // updateProject,
-  // deleteProject,
+  updateProject,
+  deleteProject,
   loadProjects,
   structuredProjects,
-  // loadProject,
-  // backProject,
-  // getBackers,
-  // payoutProject,
+  loadProject,
+  backProject,
+  getBackers,
+  payoutProject,
 };

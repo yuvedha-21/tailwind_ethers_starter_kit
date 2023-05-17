@@ -8,9 +8,9 @@ const { setGlobalState, useGlobalState, getGlobalState } = createGlobalState({
   backModal: "scale-0",
   connectedAccount: "",
   projects: [],
-  //   project: null,
+  project: null,
   stats: null,
-  //   backers: [],
+  backers: [],
 });
 
 const truncate = (text, startChars, endChars, maxLength) => {

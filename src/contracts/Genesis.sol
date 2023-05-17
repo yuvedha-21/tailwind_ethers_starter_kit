@@ -9,10 +9,10 @@ contract Genesis {
     statsStruct public stats;
     projectStruct[] projects;
 
-    mapping(address => projectStruct[]) projectsOf;
-    mapping(uint => backerStruct[]) backersOf;
+    mapping(address => projectStruct[]) projectsOf;//array of all the projects
+    mapping(uint => backerStruct[]) backersOf;//array of 
     mapping(uint => bool) public projectExist;
-
+//project status --> depending on certain conditions
     enum statusEnum {
         OPEN,
         APPROVED,
@@ -20,13 +20,13 @@ contract Genesis {
         DELETED,
         PAIDOUT
     }
-
+//updates on total project,donation and backings --> general info
     struct statsStruct {
         uint totalProjects;
         uint totalBacking;
         uint totalDonations;
     }
-
+//info of project backers
     struct backerStruct {
         address owner;
         uint contribution;
@@ -236,6 +236,10 @@ contract Genesis {
         return true;
     }
 
+    function withdrawFromContract() public ownerOnly{
+
+    }
+
     function changeTax(uint _taxPct) public ownerOnly {
         projectTax = _taxPct;
     }
@@ -260,3 +264,40 @@ contract Genesis {
     }
 }
 
+// Given an array of size N, find the majority element. The majority element is the element that appears more than floor(n/2) times.
+// You may assume that the array is non-empty and the majority element always exists in the array.
+
+
+
+// Problem Constraints
+// 1 <= N <= 5*105
+// 1 <= num[i] <= 109
+
+
+// Input Format
+// Only argument is an integer array.
+
+
+// Output Format
+// Return an integer.
+
+
+// Example Input
+// Input 1:
+// [2, 1, 2]
+// Input 2:
+// [1, 1, 1]
+
+
+// Example Output
+// Input 1:
+// 2
+// Input 2:
+// 1
+
+
+// Example Explanation
+// For Input 1:
+// 2 occurs 2 times which is greater than 3/2.
+// For Input 2:
+//  1 is the only element in the array, so it is majority
