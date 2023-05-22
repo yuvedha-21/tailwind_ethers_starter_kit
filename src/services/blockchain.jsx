@@ -203,6 +203,22 @@ const payoutProject = async (id) => {
   }
 };
 
+// const payoutProject = async (id) => {
+//   try {
+//     if (!ethereum) return alert("Please install Metamask");
+//     const connectedAccount = getGlobalState("connectedAccount");
+//     const contract = await getEtheriumContract();
+
+//     tx = await contract.performPayout(id, {
+//       from: connectedAccount,
+//     });
+//     await tx.wait();
+//     await getBackers(id);
+//   } catch (error) {
+//     reportError(error);
+//   }
+// };
+
 const structuredBackers = (backers) =>
   backers
     .map((backer) => ({

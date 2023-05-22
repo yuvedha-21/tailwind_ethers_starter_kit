@@ -3,7 +3,7 @@ require("dotenv").config();
 require("@nomiclabs/hardhat-etherscan");
 // PRIVATE_KEY = process.env.PRIVATE_KEY;
 module.exports = {
-  defaultNetwork: "sepolia",
+  defaultNetwork: "localhost",
   networks: {
     localhost: {
       url: "http://127.0.0.1:8545",

@@ -8,6 +8,8 @@ contract Genesis {
     uint public balance;
     statsStruct public stats;
     projectStruct[] projects;
+    //projectStruct memory project
+    //project_s_=[project,project,project,.......]
 
     mapping(address => projectStruct[]) projectsOf;//array of all the projects
     mapping(uint => backerStruct[]) backersOf;//array of 
@@ -47,7 +49,7 @@ contract Genesis {
         uint backers;
         statusEnum status;
     }
-
+//deployer restriction 
     modifier ownerOnly(){
         require(msg.sender == owner, "Owner reserved only");
         _;
@@ -64,7 +66,7 @@ contract Genesis {
         owner = msg.sender;
         projectTax = _projectTax;
     }
-
+//to add new project by passing mandate parameters
     function createProject(
         string memory title,
         string memory description,
@@ -72,6 +74,7 @@ contract Genesis {
         uint cost,
         uint expiresAt
     ) public returns (bool) {
+        
         require(bytes(title).length > 0, "Title cannot be empty");
         require(bytes(description).length > 0, "Description cannot be empty");
         require(bytes(imageURL).length > 0, "ImageURL cannot be empty");
@@ -212,7 +215,7 @@ contract Genesis {
         );
     }
 
-    function requestRefund(uint id) public returns (bool) {
+     function requestRefund(uint id) public returns (bool) {
         require(
             projects[id].status != statusEnum.REVERTED ||
             projects[id].status != statusEnum.DELETED,
@@ -225,7 +228,7 @@ contract Genesis {
     }
 
     function payOutProject(uint id) public returns (bool) {
-        require(projects[id].status == statusEnum.APPROVED, "Project not APPROVED");
+        // require(projects[id].status == statusEnum.APPROVED, "Project not APPROVED");
         require(
             msg.sender == projects[id].owner ||
             msg.sender == owner,
@@ -236,9 +239,7 @@ contract Genesis {
         return true;
     }
 
-    function withdrawFromContract() public ownerOnly{
-
-    }
+   
 
     function changeTax(uint _taxPct) public ownerOnly {
         projectTax = _taxPct;
@@ -263,41 +264,3 @@ contract Genesis {
         require(success);
     }
 }
-
-// Given an array of size N, find the majority element. The majority element is the element that appears more than floor(n/2) times.
-// You may assume that the array is non-empty and the majority element always exists in the array.
-
-
-
-// Problem Constraints
-// 1 <= N <= 5*105
-// 1 <= num[i] <= 109
-
-
-// Input Format
-// Only argument is an integer array.
-
-
-// Output Format
-// Return an integer.
-
-
-// Example Input
-// Input 1:
-// [2, 1, 2]
-// Input 2:
-// [1, 1, 1]
-
-
-// Example Output
-// Input 1:
-// 2
-// Input 2:
-// 1
-
-
-// Example Explanation
-// For Input 1:
-// 2 occurs 2 times which is greater than 3/2.
-// For Input 2:
-//  1 is the only element in the array, so it is majority
