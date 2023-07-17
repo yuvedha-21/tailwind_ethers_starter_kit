@@ -38,7 +38,6 @@ const BackProject = ({ project }) => {
               <FaTimes />
             </button>
           </div>
-
           <div className="flex justify-center items-center mt-5">
             <div className="rounded-xl overflow-hidden h-20 w-20">
               <img

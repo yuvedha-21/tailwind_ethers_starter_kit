@@ -16,7 +16,6 @@ const App = () => {
 
   return (
     <div className="min-h-screen relative">
-      <div>Hi</div>
       <Header />
       {loaded ? (
         <Routes>

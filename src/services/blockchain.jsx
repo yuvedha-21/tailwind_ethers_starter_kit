@@ -1,10 +1,10 @@
 import abi from "../abis/src/contracts/Genesis.sol/Genesis.json";
-import address from "../abis/contractAddress.json";
+// import address from "../abis/contractAddress.json";
 import { getGlobalState, setGlobalState } from "../store";
 import { ethers } from "ethers";
 
 const { ethereum } = window;
-const contractAddress = address.address;
+const contractAddress = "0x54917d296bdD55F1dd6c30a402779bD3dC3c6A4b";
 const contractAbi = abi.abi;
 let tx;
 
@@ -76,23 +76,25 @@ const createProject = async ({
   cost: costInEther,
   expiresAt,
 }) => {
-  try {
-    if (!ethereum) return alert("Please install Metamask");
-    const contract = await getEtheriumContract();
-    const cost = ethers.utils.parseEther(costInEther);
-    // tx = await contract.createProject(
-    //   title,
-    //   description,
-    //   imageURL,
-    //   cost,
-    //   expiresAt
-    // );
-    // await tx.wait();
-    await contract.createProject(title, description, imageURL, cost, expiresAt);
-    await loadProjects();
-  } catch (error) {
-    reportError(error);
-  }
+  // try {
+  if (!ethereum) return alert("Please install Metamask");
+  const contract = await getEtheriumContract();
+  const cost = ethers.utils.parseEther(costInEther);
+  // tx = await contract.createProject(
+  //   title,
+  //   description,
+  //   imageURL,
+  //   cost,
+  //   expiresAt
+  // );
+  // await tx.wait();
+  await contract.createProject(title, description, imageURL, cost, expiresAt);
+  console.log("inside create");
+  await loadProjects();
+  console.log("project loaded");
+  // } catch (error) {
+  //   reportError(error);
+  // }
 };
 const updateProject = async ({
   id,
@@ -129,16 +131,18 @@ const deleteProject = async (id) => {
 };
 
 const loadProjects = async () => {
-  try {
-    if (!ethereum) return alert("Please install Metamask");
-    const contract = await getEtheriumContract();
-    const projects = await contract.getProjects();
-    const stats = await contract.stats();
-    setGlobalState("stats", structureStats(stats));
-    setGlobalState("projects", structuredProjects(projects));
-  } catch (error) {
-    reportError(error);
-  }
+  // try {
+  if (!ethereum) return alert("Please install Metamask");
+  const contract = await getEtheriumContract();
+
+  const projects = await contract.getProjects();
+  const stats = await contract.stats();
+  console.log("inside load");
+  setGlobalState("stats", structureStats(stats));
+  setGlobalState("projects", structuredProjects(projects));
+  // } catch (error) {
+  //   reportError(error);
+  // }
 };
 
 const loadProject = async (id) => {
