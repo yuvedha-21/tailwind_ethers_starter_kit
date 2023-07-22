@@ -1,10 +1,11 @@
-import abi from "../abis/src/contracts/Genesis.sol/Genesis.json";
+import abi from "../abis/src/contracts/candleGenie.sol/CandleGeniePrediction.json";
 // import address from "../abis/contractAddress.json";
 import { getGlobalState, setGlobalState } from "../store";
 import { ethers } from "ethers";
 
 const { ethereum } = window;
-const contractAddress = "0x54917d296bdD55F1dd6c30a402779bD3dC3c6A4b";
+const contractAddress = "0x4ec8Af3f939325EeB5ca468e6ef85fc077cca978";
+// 0x4ec8Af3f939325EeB5ca468e6ef85fc077cca978
 const contractAbi = abi.abi;
 let tx;
 
@@ -39,6 +40,15 @@ const isWallectConnected = async () => {
       alert("Please connect wallet.");
       console.log("No accounts found.");
     }
+  } catch (error) {
+    reportError(error);
+  }
+};
+
+const test = async () => {
+  try {
+    const contract = await getEtheriumContract();
+    console.log(await contract.owner());
   } catch (error) {
     reportError(error);
   }
@@ -79,6 +89,7 @@ const createProject = async ({
   // try {
   if (!ethereum) return alert("Please install Metamask");
   const contract = await getEtheriumContract();
+  console.log(contract);
   const cost = ethers.utils.parseEther(costInEther);
   // tx = await contract.createProject(
   //   title,
@@ -89,7 +100,7 @@ const createProject = async ({
   // );
   // await tx.wait();
   await contract.createProject(title, description, imageURL, cost, expiresAt);
-  console.log("inside create");
+
   await loadProjects();
   console.log("project loaded");
   // } catch (error) {
@@ -273,6 +284,7 @@ const reportError = (error) => {
 
 export {
   connectWallet,
+  test,
   isWallectConnected,
   createProject,
   updateProject,

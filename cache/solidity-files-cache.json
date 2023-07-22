@@ -1,12 +1,12 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "D:\\Projects\\Blockchain\\CrowdFundingPlatform\\genesis\\src\\contracts\\Genesis.sol": {
-      "lastModificationDate": 1684491260611,
-      "contentHash": "8ce3fe6adca75b0dd63ccdbc7a87f720",
-      "sourceName": "src/contracts/Genesis.sol",
+    "D:\\Cloudin_Projects\\PredictionDapp\\candle_genie\\src\\contracts\\candleGenie.sol": {
+      "lastModificationDate": 1689934733196,
+      "contentHash": "f7cfce151d27a377130b7da5e798e55d",
+      "sourceName": "src/contracts/candleGenie.sol",
       "solcConfig": {
-        "version": "0.8.11",
+        "version": "0.8.15",
         "settings": {
           "optimizer": {
             "enabled": true,
@@ -30,10 +30,16 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.8.7"
+        "^0.8.13"
       ],
       "artifacts": [
-        "Genesis"
+        "CandleGenieOperator",
+        "CandleGeniePrediction",
+        "CandleGenieReferrals",
+        "Context",
+        "Ownable",
+        "Pausable",
+        "ReentrancyGuard"
       ]
     }
   }

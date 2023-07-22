@@ -17,17 +17,17 @@ const App = () => {
   return (
     <div className="min-h-screen relative">
       <Header />
-      {loaded ? (
+      {/* {loaded ? (
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects/:id" element={<Project />} />
         </Routes>
-      ) : null}
+      ) : null} */}
       {/* <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects/:id" element={<Project />} />
       </Routes> */}
-      <ToastContainer
+      {/* <ToastContainer
         position="bottom-center"
         autoClose={5000}
         hideProgressBar={false}
@@ -38,7 +38,7 @@ const App = () => {
         draggable
         pauseOnHover
         theme="dark"
-      />
+      /> */}
     </div>
   );
 };

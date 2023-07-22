@@ -3,8 +3,8 @@ const fs = require("fs");
 
 async function main() {
   const taxFee = 5;
-  const Contract = await ethers.getContractFactory("Genesis");
-  const contract = await Contract.deploy(taxFee);
+  const Contract = await ethers.getContractFactory("CandleGeniePrediction");
+  const contract = await Contract.deploy();
 
   await contract.deployed();
 
